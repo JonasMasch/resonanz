@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Resonanz — ein Raum verklingt</title>
+<meta name="description" content="Elf Zustaende eines Innenraums, durch Scrollen ineinander überblendet.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Fortschritt: bewusst sichtbar, damit die Bewegung messbar bleibt -->
+<div class="fortschritt" role="progressbar" aria-label="Fortschritt durch die Bildkette"
+     aria-valuemin="0" aria-valuemax="10" aria-valuenow="0">
+  <div class="fortschritt__balken" id="balken"></div>
+</div>
+
+<header class="kopf">
+  <p class="kopf__marke">Bildkette 01</p>
+  <h1 class="kopf__titel">Resonanz</h1>
+  <p class="kopf__text">
+    Ein Foto eines Wohnraums, elf Mal weitergereicht. Jede Fassung entsteht aus der
+    vorherigen, nie aus dem Original: eine Spur Farbdrift, ein Pixel Versatz, etwas
+    Unschärfe, ein wenig Korn. Einzeln ist kaum etwas davon zu bemerken. Am Ende der
+    Kette steht ein Raum, den es so nie gegeben hat.
+  </p>
+  <p class="kopf__hinweis" aria-hidden="true">Scrollen bewegt die Kette<span class="pfeil"></span></p>
+</header>
+
+<section class="bahn" id="bahn">
+  <div class="buehne">
+
+    <figure class="rahmen">
+      <figcaption class="rahmen__kopf">
+        <span class="rahmen__quelle">source.webp — Wohnraum, 1456 × 816</span>
+        <span class="rahmen__stufe">Stufe <b id="stufe-zahl">00</b><span class="zart"> / 10</span></span>
+      </figcaption>
+
+      <div class="rahmen__flaeche">
+        <div class="stapel" id="stapel"><!-- Bilder werden per JS eingesetzt --></div>
+        <div class="laden" id="laden"><span id="laden-text">Bilder werden geladen</span></div>
+      </div>
+
+      <div class="rahmen__fuss">
+        <ol class="skala" id="skala" aria-hidden="true"></ol>
+        <p class="messwert">
+          Abweichung vom Original <b id="mess-orig">0,00</b><span class="zart"> · zur vorherigen Fassung </span><b id="mess-vor">0,00</b>
+        </p>
+      </div>
+    </figure>
+
+  </div>
+</section>
+
+<footer class="fuss">
+  <div class="fuss__spalte">
+    <h2>Verfahren</h2>
+    <p>
+      <code>decay.py</code> wendet pro Stufe fünf Operationen an: Farbdrift
+      (Hue-Rotation, Sättigungs- und Kontrastverlust), Blockversatz einzelner
+      Kacheln, eine weiche sinusförmige Verschiebung, Gaußsche Unschärfe und
+      Filmkorn. Die Stärke wächst von 0,55 auf 1,0. Jede Stufe rechnet auf dem
+      Ergebnis der vorherigen — die Abweichungen summieren sich.
+    </p>
+  </div>
+  <div class="fuss__spalte">
+    <h2>Messwerte</h2>
+    <p>
+      Angegeben ist die mittlere Abweichung pro Farbkanal in Stufen von 0 bis 255.
+      Von Fassung zu Fassung bleibt sie annähernd konstant bei etwa acht Stufen;
+      gegenüber dem Original wächst sie auf über dreißig. Der Schritt bleibt
+      klein, der Weg wird lang.
+    </p>
+  </div>
+</footer>
+
+<script src="img/stufen.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

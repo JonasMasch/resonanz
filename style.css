@@ -1,0 +1,297 @@
+/* Resonanz - Dispositiv: die Seite zeigt, dass sie zeigt.
+   Kein Vollbild, kein Ausblenden der Oberflaeche. Das Bild sitzt sichtbar
+   in einem Rahmen, Leisten und Skala bleiben stehen. */
+
+:root {
+  --papier:      #eceae5;
+  --papier-tief: #e2dfd8;
+  --tinte:       #1c1b19;
+  --tinte-zart:  #6d6a63;
+  --linie:       #c9c5bc;
+  --akzent:      #8a4b3c;
+  --rahmen-bg:   #f6f5f2;
+
+  --schrift: ui-sans-serif, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+
+  --seitenrand: clamp(1.25rem, 5vw, 4rem);
+  --bildverhaeltnis: 1456 / 816;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --papier:      #16161a;
+    --papier-tief: #101013;
+    --tinte:       #e8e6e1;
+    --tinte-zart:  #908c85;
+    --linie:       #34343a;
+    --akzent:      #c98a72;
+    --rahmen-bg:   #1d1d22;
+  }
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: auto; }
+
+body {
+  margin: 0;
+  background: var(--papier);
+  color: var(--tinte);
+  font-family: var(--schrift);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+b { font-weight: 600; }
+.zart { color: var(--tinte-zart); font-weight: 400; }
+
+/* ---------------------------------------------------------------- Fortschritt */
+
+.fortschritt {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: 3px;
+  background: var(--linie);
+  z-index: 50;
+}
+
+.fortschritt__balken {
+  height: 100%;
+  width: 0;
+  background: var(--akzent);
+  transform-origin: left center;
+}
+
+/* ---------------------------------------------------------------- Kopf */
+
+.kopf {
+  max-width: 44rem;
+  margin: 0 auto;
+  padding: clamp(4rem, 12vh, 8rem) var(--seitenrand) clamp(3rem, 8vh, 5rem);
+}
+
+.kopf__marke {
+  margin: 0 0 1.25rem;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--tinte-zart);
+}
+
+.kopf__titel {
+  margin: 0 0 1.5rem;
+  font-size: clamp(2.5rem, 7vw, 4.25rem);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+
+.kopf__text {
+  margin: 0;
+  font-size: clamp(1rem, 1.6vw, 1.125rem);
+  max-width: 38rem;
+  color: var(--tinte);
+}
+
+.kopf__hinweis {
+  margin: 2.5rem 0 0;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--tinte-zart);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.pfeil {
+  display: block;
+  width: 1px;
+  height: 2.25rem;
+  background: linear-gradient(to bottom, var(--linie), transparent);
+  animation: sinken 2.4s ease-in-out infinite;
+}
+
+@keyframes sinken {
+  0%, 100% { opacity: 0.35; transform: translateY(0); }
+  50%      { opacity: 1;    transform: translateY(4px); }
+}
+
+/* ---------------------------------------------------------------- Bahn / Buehne */
+
+/* Die Scrollstrecke. Höhe wird in app.js gesetzt: 11 Stufen brauchen Weg. */
+.bahn { position: relative; }
+
+.buehne {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem var(--seitenrand);
+}
+
+/* ---------------------------------------------------------------- Rahmen */
+
+.rahmen {
+  /* Der dritte Wert deckelt die Breite über die verfuegbare Höhe ab,
+     damit der Rahmen samt Leisten immer ganz in die Buehne passt. */
+  width: min(940px, 90vw, (100vh - 17rem) * 1.7843);
+  margin: 0;
+  background: var(--rahmen-bg);
+  border: 1px solid var(--linie);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 12px 32px -20px rgba(0, 0, 0, 0.28);
+}
+
+.rahmen__kopf,
+.rahmen__fuss {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.6rem 0.9rem;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  color: var(--tinte-zart);
+}
+
+.rahmen__kopf { border-bottom: 1px solid var(--linie); }
+.rahmen__fuss { border-top: 1px solid var(--linie); }
+
+.rahmen__stufe b,
+.messwert b { color: var(--tinte); font-variant-numeric: tabular-nums; }
+
+/* Passepartout: das Bild beruehrt den Rahmen nicht. */
+.rahmen__flaeche {
+  position: relative;
+  padding: 1.25rem;
+  background: var(--rahmen-bg);
+}
+
+.stapel {
+  position: relative;
+  aspect-ratio: var(--bildverhaeltnis);
+  overflow: hidden;
+  background: var(--papier-tief);
+  outline: 1px solid var(--linie);
+  outline-offset: 0;
+}
+
+.stapel img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  opacity: 0;
+  will-change: opacity;
+}
+
+/* Ladeanzeige - verschwindet, sobald alle Fassungen da sind. */
+.laden {
+  position: absolute;
+  inset: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--papier-tief);
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--tinte-zart);
+  transition: opacity 0.4s ease;
+}
+
+.laden[hidden] { display: none; }
+.laden.fertig { opacity: 0; pointer-events: none; }
+
+/* ---------------------------------------------------------------- Skala */
+
+.skala {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  height: 12px;
+}
+
+.skala li {
+  width: 10px;
+  height: 4px;
+  background: var(--linie);
+  transition: height 0.25s ease, background-color 0.25s ease;
+}
+
+.skala li.erreicht { background: var(--tinte-zart); }
+.skala li.aktiv { height: 12px; background: var(--akzent); }
+
+.messwert { margin: 0; white-space: nowrap; }
+
+/* ---------------------------------------------------------------- Fuss */
+
+.fuss {
+  max-width: 62rem;
+  margin: 0 auto;
+  padding: clamp(4rem, 12vh, 7rem) var(--seitenrand) clamp(5rem, 14vh, 9rem);
+  display: grid;
+  gap: clamp(2rem, 5vw, 4rem);
+  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  border-top: 1px solid var(--linie);
+}
+
+.fuss h2 {
+  margin: 0 0 0.75rem;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--tinte-zart);
+}
+
+.fuss p { margin: 0; font-size: 0.9375rem; }
+
+.fuss code {
+  font-family: var(--mono);
+  font-size: 0.875em;
+  background: var(--papier-tief);
+  border: 1px solid var(--linie);
+  padding: 0.05em 0.35em;
+}
+
+/* ---------------------------------------------------------------- klein / ruhig */
+
+@media (max-width: 40rem) {
+  .rahmen { width: 100%; }
+  .rahmen__flaeche { padding: 0.75rem; }
+  .laden { inset: 0.75rem; }
+
+  .rahmen__kopf,
+  .rahmen__fuss { font-size: 0.625rem; padding: 0.55rem 0.7rem; }
+
+  /* Die Quelle darf kürzen, die Stufenangabe nie umbrechen. */
+  .rahmen__quelle {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .rahmen__stufe { flex: 0 0 auto; white-space: nowrap; }
+
+  .rahmen__fuss { flex-wrap: wrap; gap: 0.5rem; }
+  .messwert { white-space: normal; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pfeil { animation: none; }
+  .skala li { transition: none; }
+}
