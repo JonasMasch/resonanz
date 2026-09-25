@@ -4,15 +4,34 @@
 (function () {
   "use strict";
 
-  var daten = (window.RESONANZ && window.RESONANZ.stufen) || [];
+  var quelle = window.RESONANZ || {};
+  var daten = quelle.stufen || [];
   if (!daten.length) {
-    console.error("Resonanz: img/stufen.js fehlt oder ist leer. Erst decay.py laufen lassen.");
+    console.error("Resonanz: stufen.js fehlt oder ist leer. Erst decay.py "
+                  + "oder einbinden.py laufen lassen.");
     return;
   }
 
-  var ANZAHL = daten.length;          // 11 Fassungen
-  var LETZTE = ANZAHL - 1;            // 10 Übergänge
-  var WEG_PRO_STUFE = 0.85;           // Bildschirmhoehen Scrollweg je Übergang
+  // Welcher Ordner, welches Seitenverhältnis - beides steht in den Daten,
+  // damit dieselbe app.js mehrere Ketten bedienen kann.
+  var ORDNER = quelle.ordner || "img";
+  if (quelle.breite && quelle.hoehe) {
+    var wurzel = document.documentElement.style;
+    wurzel.setProperty("--bildverhaeltnis", quelle.breite + " / " + quelle.hoehe);
+    wurzel.setProperty("--seitenfaktor", (quelle.breite / quelle.hoehe).toFixed(4));
+  }
+
+  var ANZAHL = daten.length;          // Fassungen insgesamt
+  var LETZTE = ANZAHL - 1;            // Übergänge
+
+  // Scrollweg je Übergang in Bildschirmhöhen. Kurze Ketten dürfen sich pro
+  // Stufe 0,85 Höhen nehmen; lange werden gestaucht, damit die Seite
+  // insgesamt etwa vierzehn Höhen lang bleibt.
+  var WEG_PRO_STUFE = Math.max(0.45, Math.min(0.85, 14 / LETZTE));
+
+  // So viele Fassungen müssen geladen sein, bevor der Rahmen sich öffnet -
+  // der Rest kommt im Hintergrund nach, während schon gescrollt wird.
+  var VORLAUF = Math.min(3, ANZAHL);
 
   var bahn    = document.getElementById("bahn");
   var buehne  = document.querySelector(".buehne");
@@ -22,6 +41,7 @@
   var laden   = document.getElementById("laden");
   var ladenTx = document.getElementById("laden-text");
   var zahl    = document.getElementById("stufe-zahl");
+  var vonZahl = document.getElementById("stufe-von");
   var messO   = document.getElementById("mess-orig");
   var messV   = document.getElementById("mess-vor");
   var leiste  = document.querySelector(".fortschritt");
@@ -34,12 +54,13 @@
 
   daten.forEach(function (stufe, i) {
     var img = new Image();
-    img.src = "img/" + stufe.datei;
+    img.src = ORDNER + "/" + stufe.datei;
     img.alt = i === 0
       ? "Wohnraum, unveränderte Aufnahme"
       : "Wohnraum, Fassung " + i + " von " + LETZTE;
     img.decoding = "async";
     img.loading = "eager";
+    img.fetchPriority = i < VORLAUF ? "high" : "low";
     img.draggable = false;
     img.style.zIndex = String(i);     // spätere Fassungen liegen oben
     img.style.opacity = i === 0 ? "1" : "0";
@@ -57,12 +78,13 @@
 
   function fertigGemeldet() {
     geladen += 1;
-    ladenTx.textContent = "Bilder werden geladen " + geladen + " / " + ANZAHL;
-    if (geladen >= ANZAHL) {
+    ladenTx.textContent = "Fassungen werden geladen " + geladen + " / " + ANZAHL;
+    if (geladen === VORLAUF) {
+      // nicht auf die ganze Kette warten - der Anfang genügt zum Loslegen
       laden.classList.add("fertig");
       setTimeout(function () { laden.hidden = true; }, 450);
-      zeichnen();
     }
+    if (geladen >= VORLAUF) zeichnen();
   }
 
   /* ---------------------------------------------------------------- Geometrie */
@@ -137,6 +159,11 @@
     anstossen();
   });
 
+  if (vonZahl) vonZahl.textContent = " / " + LETZTE;
+  var quellName = document.getElementById("quelle-name");
+  if (quellName && quelle.quelle) {
+    quellName.textContent = quelle.quelle + " — " + quelle.breite + " × " + quelle.hoehe;
+  }
   bahnhoeheSetzen();
   zeichnen();
 })();

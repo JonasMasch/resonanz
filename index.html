@@ -16,10 +16,16 @@
 </div>
 
 <header class="kopf">
-  <p class="kopf__marke">Bildkette 01</p>
-  <h1 class="kopf__titel">Resonanz</h1>
+  <p class="kopf__marke">Resonanz</p>
+
+  <nav class="wechsel" aria-label="Bildketten">
+    <a class="wechsel__link" href="index.html" aria-current="page">01 Verklingen</a>
+    <a class="wechsel__link" href="moebel.html">02 Umräumen</a>
+  </nav>
+
+  <h1 class="kopf__titel">Verklingen</h1>
   <p class="kopf__text">
-    Ein Foto eines Wohnraums, elf Mal weitergereicht. Jede Fassung entsteht aus der
+    Ein Foto eines Wohnraums, fünfundzwanzig Mal weitergereicht. Jede Fassung entsteht aus der
     vorherigen, nie aus dem Original: eine Spur Farbdrift, ein Pixel Versatz, etwas
     Unschärfe, ein wenig Korn. Einzeln ist kaum etwas davon zu bemerken. Am Ende der
     Kette steht ein Raum, den es so nie gegeben hat.
@@ -32,8 +38,8 @@
 
     <figure class="rahmen">
       <figcaption class="rahmen__kopf">
-        <span class="rahmen__quelle">source.webp — Wohnraum, 1456 × 816</span>
-        <span class="rahmen__stufe">Stufe <b id="stufe-zahl">00</b><span class="zart"> / 10</span></span>
+        <span class="rahmen__quelle" id="quelle-name">source.webp</span>
+        <span class="rahmen__stufe">Stufe <b id="stufe-zahl">00</b><span class="zart" id="stufe-von"> / 25</span></span>
       </figcaption>
 
       <div class="rahmen__flaeche">
@@ -59,17 +65,28 @@
       <code>decay.py</code> wendet pro Stufe fünf Operationen an: Farbdrift
       (Hue-Rotation, Sättigungs- und Kontrastverlust), Blockversatz einzelner
       Kacheln, eine weiche sinusförmige Verschiebung, Gaußsche Unschärfe und
-      Filmkorn. Die Stärke wächst von 0,55 auf 1,0. Jede Stufe rechnet auf dem
-      Ergebnis der vorherigen — die Abweichungen summieren sich.
+      Filmkorn. Die Stärke wächst bis zur zehnten Stufe auf 1,0 und danach nur
+      noch gedämpft gegen 1,3 — ein Echo wird mit der Zeit schwächer, nicht
+      wilder. Jede Stufe rechnet auf dem Ergebnis der vorherigen, die
+      Abweichungen summieren sich.
     </p>
   </div>
   <div class="fuss__spalte">
     <h2>Messwerte</h2>
     <p>
       Angegeben ist die mittlere Abweichung pro Farbkanal in Stufen von 0 bis 255.
-      Von Fassung zu Fassung bleibt sie annähernd konstant bei etwa acht Stufen;
-      gegenüber dem Original wächst sie auf über dreißig. Der Schritt bleibt
-      klein, der Weg wird lang.
+      Von Fassung zu Fassung sinkt sie langsam von zwölf auf knapp sieben — die
+      späten Schritte fallen also weniger ins Gewicht als die frühen. Gegenüber
+      dem Original wächst sie derweil auf fast fünfzig. Der Schritt bleibt klein,
+      der Weg wird lang.
+    </p>
+  </div>
+  <div class="fuss__spalte">
+    <h2>Weiter</h2>
+    <p>
+      <a class="fuss__link" href="moebel.html">02 Umräumen</a><br>
+      Derselbe Gedanke, aber nicht gerechnet: eine Almhütte, neun Mal umgebaut,
+      bis vom Anfang nur die Fenster bleiben.
     </p>
   </div>
 </footer>

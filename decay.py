@@ -34,13 +34,21 @@ from PIL import Image, ImageFilter
 # Hilfsfunktionen
 # --------------------------------------------------------------------------
 
-def ramp(t: float) -> float:
-    """Stärkefaktor eines Schritts. t läuft von ~0 (Anfang) bis 1 (Ende).
+def ramp(i: int, basis: int = 10) -> float:
+    """Stärkefaktor der Stufe i — hängt an der absoluten Stufennummer,
+    nicht an der Länge der Kette.
 
-    Beginnt bei 0.55 und wächst auf 1.0 - die spaeten Schritte greifen also
-    etwas kräftiger zu als die fruehen, bleiben aber einzeln immer klein.
+    Bis zur Basisstufe wächst er linear von 0,55 auf 1,0: die späten
+    Schritte greifen etwas kräftiger zu als die frühen, bleiben aber
+    einzeln immer klein. Darüber hinaus wächst er nur noch gedämpft gegen
+    1,3 — ein Echo wird mit der Zeit schwächer, nicht wilder.
+
+    Dadurch ist jede Stufe dieselbe, ob die Kette nun bei 10 endet oder
+    weitergeführt wird.
     """
-    return 0.55 + 0.45 * t
+    if i <= basis:
+        return 0.55 + 0.45 * (i / basis)
+    return 1.0 + 0.30 * (1.0 - math.exp(-(i - basis) / 8.0))
 
 
 def hue_rotate(arr: np.ndarray, degrees: float) -> np.ndarray:
@@ -194,6 +202,8 @@ def main():
     p.add_argument("--steps", type=int, default=10, help="Anzahl der Versionen")
     p.add_argument("--max-width", type=int, default=1600, help="Breite deckeln")
     p.add_argument("--quality", type=int, default=84, help="WebP-Qualitaet")
+    p.add_argument("--basis", type=int, default=10,
+                   help="Stufe, ab der die Stärke gedämpft weiterwächst")
     p.add_argument("--seed", type=int, default=7, help="Zufallssaat (reproduzierbar)")
     args = p.parse_args()
 
@@ -227,8 +237,7 @@ def main():
     print(f"{0:>5}  {'00.webp':<9} {0.0:>8.2f} {0.0:>10.2f} {0.0:>12.2f}")
 
     for i in range(1, args.steps + 1):
-        t = i / args.steps
-        s = ramp(t)
+        s = ramp(i, args.basis)
         rng = np.random.default_rng(args.seed + i * 1009)  # pro Stufe fest
 
         arr = schritt(arr, s, rng)
@@ -249,7 +258,10 @@ def main():
         print(f"{i:>5}  {datei.name:<9} {s:>8.2f} {d_vorher:>10.2f} {d_orig:>12.2f}")
         vorher = arr.copy()
 
-    daten = {"quelle": src.name, "stufen": manifest}
+    daten = {"quelle": src.name,
+             "ordner": out.as_posix(),
+             "breite": img.width, "hoehe": img.height,
+             "stufen": manifest}
     (out / "manifest.json").write_text(
         json.dumps(daten, indent=2, ensure_ascii=False), encoding="utf-8")
 

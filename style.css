@@ -16,6 +16,7 @@
 
   --seitenrand: clamp(1.25rem, 5vw, 4rem);
   --bildverhaeltnis: 1456 / 816;
+  --seitenfaktor: 1.7843;   /* Breite geteilt durch Höhe, für die Deckelung */
 }
 
 @media (prefers-color-scheme: dark) {
@@ -72,13 +73,50 @@ b { font-weight: 600; }
 }
 
 .kopf__marke {
+  margin: 0 0 0.9rem;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--tinte);
+}
+
+/* Wechsel zwischen den Ketten - zwei Wege durch dieselbe Frage. */
+.wechsel {
+  display: flex;
+  gap: 1.25rem;
   margin: 0 0 1.25rem;
   font-family: var(--mono);
   font-size: 0.75rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--tinte-zart);
 }
+
+.wechsel__link {
+  color: var(--tinte-zart);
+  text-decoration: none;
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid transparent;
+}
+
+.wechsel__link:hover { color: var(--tinte); }
+
+.wechsel__link[aria-current="page"] {
+  color: var(--tinte);
+  border-bottom-color: var(--akzent);
+}
+
+.fuss__link {
+  color: var(--akzent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--linie);
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  letter-spacing: 0.06em;
+  line-height: 2.2;
+}
+
+.fuss__link:hover { border-bottom-color: var(--akzent); }
 
 .kopf__titel {
   margin: 0 0 1.5rem;
@@ -141,7 +179,7 @@ b { font-weight: 600; }
 .rahmen {
   /* Der dritte Wert deckelt die Breite über die verfuegbare Höhe ab,
      damit der Rahmen samt Leisten immer ganz in die Buehne passt. */
-  width: min(940px, 90vw, (100vh - 17rem) * 1.7843);
+  width: min(940px, 90vw, calc((100vh - 17rem) * var(--seitenfaktor)));
   margin: 0;
   background: var(--rahmen-bg);
   border: 1px solid var(--linie);
@@ -213,6 +251,8 @@ b { font-weight: 600; }
 
 /* ---------------------------------------------------------------- Skala */
 
+/* Die Skala trägt so viele Striche, wie die Kette Stufen hat - sie muss
+   sich der Anzahl anpassen statt über die Leiste hinauszuwachsen. */
 .skala {
   display: flex;
   align-items: flex-end;
@@ -221,10 +261,14 @@ b { font-weight: 600; }
   padding: 0;
   list-style: none;
   height: 12px;
+  flex: 1 1 auto;
+  max-width: 420px;
 }
 
 .skala li {
-  width: 10px;
+  flex: 1 1 0;
+  min-width: 2px;
+  max-width: 10px;
   height: 4px;
   background: var(--linie);
   transition: height 0.25s ease, background-color 0.25s ease;
@@ -289,6 +333,7 @@ b { font-weight: 600; }
 
   .rahmen__fuss { flex-wrap: wrap; gap: 0.5rem; }
   .messwert { white-space: normal; }
+  .skala { gap: 2px; max-width: 100%; }
 }
 
 @media (prefers-reduced-motion: reduce) {

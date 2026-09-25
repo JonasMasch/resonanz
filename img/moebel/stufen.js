@@ -1,0 +1,79 @@
+// automatisch erzeugt von einbinden.py - nicht von Hand ändern
+window.RESONANZ = {
+  "quelle": "Raum_orginal.webp",
+  "ordner": "img/moebel",
+  "breite": 1448,
+  "hoehe": 1086,
+  "stufen": [
+    {
+      "stufe": 0,
+      "datei": "00.webp",
+      "herkunft": "Raum_orginal.webp",
+      "abstand_zum_vorherigen": 0.0,
+      "abstand_zum_original": 0.0
+    },
+    {
+      "stufe": 1,
+      "datei": "01.webp",
+      "herkunft": "umgewandelt_01.png",
+      "abstand_zum_vorherigen": 18.32,
+      "abstand_zum_original": 18.32
+    },
+    {
+      "stufe": 2,
+      "datei": "02.webp",
+      "herkunft": "umgewandelt_02.png",
+      "abstand_zum_vorherigen": 12.11,
+      "abstand_zum_original": 22.96
+    },
+    {
+      "stufe": 3,
+      "datei": "03.webp",
+      "herkunft": "umgewandelt_03.png",
+      "abstand_zum_vorherigen": 21.52,
+      "abstand_zum_original": 39.32
+    },
+    {
+      "stufe": 4,
+      "datei": "04.webp",
+      "herkunft": "umgewandelt_04.png",
+      "abstand_zum_vorherigen": 19.69,
+      "abstand_zum_original": 34.0
+    },
+    {
+      "stufe": 5,
+      "datei": "05.webp",
+      "herkunft": "umgewandelt_05.png",
+      "abstand_zum_vorherigen": 22.99,
+      "abstand_zum_original": 46.63
+    },
+    {
+      "stufe": 6,
+      "datei": "06.webp",
+      "herkunft": "umgewandelt_06.png",
+      "abstand_zum_vorherigen": 8.64,
+      "abstand_zum_original": 48.68
+    },
+    {
+      "stufe": 7,
+      "datei": "07.webp",
+      "herkunft": "umgewandelt_07.png",
+      "abstand_zum_vorherigen": 28.99,
+      "abstand_zum_original": 66.87
+    },
+    {
+      "stufe": 8,
+      "datei": "08.webp",
+      "herkunft": "umgewandelt_08.png",
+      "abstand_zum_vorherigen": 22.77,
+      "abstand_zum_original": 73.3
+    },
+    {
+      "stufe": 9,
+      "datei": "09.webp",
+      "herkunft": "umgewandelt_09.png",
+      "abstand_zum_vorherigen": 16.78,
+      "abstand_zum_original": 76.0
+    }
+  ]
+};

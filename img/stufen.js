@@ -1,6 +1,9 @@
-// automatisch erzeugt von decay.py - nicht von Hand aendern
+// automatisch erzeugt von decay.py - nicht von Hand ändern
 window.RESONANZ = {
   "quelle": "source.webp",
+  "ordner": "img",
+  "breite": 1456,
+  "hoehe": 816,
   "stufen": [
     {
       "stufe": 0,
@@ -78,6 +81,111 @@ window.RESONANZ = {
       "staerke": 1.0,
       "abstand_zum_vorherigen": 8.16,
       "abstand_zum_original": 31.15
+    },
+    {
+      "stufe": 11,
+      "datei": "11.webp",
+      "staerke": 1.035,
+      "abstand_zum_vorherigen": 8.0,
+      "abstand_zum_original": 32.47
+    },
+    {
+      "stufe": 12,
+      "datei": "12.webp",
+      "staerke": 1.066,
+      "abstand_zum_vorherigen": 7.92,
+      "abstand_zum_original": 33.77
+    },
+    {
+      "stufe": 13,
+      "datei": "13.webp",
+      "staerke": 1.094,
+      "abstand_zum_vorherigen": 7.85,
+      "abstand_zum_original": 35.6
+    },
+    {
+      "stufe": 14,
+      "datei": "14.webp",
+      "staerke": 1.118,
+      "abstand_zum_vorherigen": 7.58,
+      "abstand_zum_original": 37.1
+    },
+    {
+      "stufe": 15,
+      "datei": "15.webp",
+      "staerke": 1.139,
+      "abstand_zum_vorherigen": 7.58,
+      "abstand_zum_original": 38.55
+    },
+    {
+      "stufe": 16,
+      "datei": "16.webp",
+      "staerke": 1.158,
+      "abstand_zum_vorherigen": 7.46,
+      "abstand_zum_original": 39.92
+    },
+    {
+      "stufe": 17,
+      "datei": "17.webp",
+      "staerke": 1.175,
+      "abstand_zum_vorherigen": 7.25,
+      "abstand_zum_original": 41.05
+    },
+    {
+      "stufe": 18,
+      "datei": "18.webp",
+      "staerke": 1.19,
+      "abstand_zum_vorherigen": 7.15,
+      "abstand_zum_original": 42.2
+    },
+    {
+      "stufe": 19,
+      "datei": "19.webp",
+      "staerke": 1.203,
+      "abstand_zum_vorherigen": 7.05,
+      "abstand_zum_original": 43.14
+    },
+    {
+      "stufe": 20,
+      "datei": "20.webp",
+      "staerke": 1.214,
+      "abstand_zum_vorherigen": 7.16,
+      "abstand_zum_original": 44.42
+    },
+    {
+      "stufe": 21,
+      "datei": "21.webp",
+      "staerke": 1.224,
+      "abstand_zum_vorherigen": 6.93,
+      "abstand_zum_original": 45.56
+    },
+    {
+      "stufe": 22,
+      "datei": "22.webp",
+      "staerke": 1.233,
+      "abstand_zum_vorherigen": 6.92,
+      "abstand_zum_original": 46.32
+    },
+    {
+      "stufe": 23,
+      "datei": "23.webp",
+      "staerke": 1.241,
+      "abstand_zum_vorherigen": 6.73,
+      "abstand_zum_original": 47.18
+    },
+    {
+      "stufe": 24,
+      "datei": "24.webp",
+      "staerke": 1.248,
+      "abstand_zum_vorherigen": 6.7,
+      "abstand_zum_original": 47.91
+    },
+    {
+      "stufe": 25,
+      "datei": "25.webp",
+      "staerke": 1.254,
+      "abstand_zum_vorherigen": 6.62,
+      "abstand_zum_original": 48.67
     }
   ]
 };

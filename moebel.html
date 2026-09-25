@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Resonanz — Umräumen</title>
+<meta name="description" content="Zehn Zustände einer Almhütte, durch Scrollen ineinander überblendet.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="fortschritt" role="progressbar" aria-label="Fortschritt durch die Bildkette"
+     aria-valuemin="0" aria-valuemax="9" aria-valuenow="0">
+  <div class="fortschritt__balken" id="balken"></div>
+</div>
+
+<header class="kopf">
+  <p class="kopf__marke">Resonanz</p>
+
+  <nav class="wechsel" aria-label="Bildketten">
+    <a class="wechsel__link" href="index.html">01 Verklingen</a>
+    <a class="wechsel__link" href="moebel.html" aria-current="page">02 Umräumen</a>
+  </nav>
+
+  <h1 class="kopf__titel">Umräumen</h1>
+  <p class="kopf__text">
+    Eine Almhütte, neun Mal umgebaut. Das rote Sofa wird grün, dann hell, die
+    Holzwände verschwinden unter Putz, die Küche wechselt die Farbe, und zuletzt
+    brennen Kerzen. Auch hier entsteht jede Fassung aus der vorherigen — nur
+    verändert diesmal kein Rechenweg das Bild, sondern eine Bildmaschine, die
+    Möbel wegnimmt und neue hinstellt. Der Grundriss bleibt, die Einrichtung
+    wandert weiter, bis vom Anfang nichts übrig ist als die Fenster.
+  </p>
+  <p class="kopf__hinweis" aria-hidden="true">Scrollen bewegt die Kette<span class="pfeil"></span></p>
+</header>
+
+<section class="bahn" id="bahn">
+  <div class="buehne">
+
+    <figure class="rahmen">
+      <figcaption class="rahmen__kopf">
+        <span class="rahmen__quelle" id="quelle-name">Raum_orginal.webp</span>
+        <span class="rahmen__stufe">Stufe <b id="stufe-zahl">00</b><span class="zart" id="stufe-von"> / 9</span></span>
+      </figcaption>
+
+      <div class="rahmen__flaeche">
+        <div class="stapel" id="stapel"><!-- Bilder werden per JS eingesetzt --></div>
+        <div class="laden" id="laden"><span id="laden-text">Fassungen werden geladen</span></div>
+      </div>
+
+      <div class="rahmen__fuss">
+        <ol class="skala" id="skala" aria-hidden="true"></ol>
+        <p class="messwert">
+          Abweichung vom Original <b id="mess-orig">0,00</b><span class="zart"> · zur vorherigen Fassung </span><b id="mess-vor">0,00</b>
+        </p>
+      </div>
+    </figure>
+
+  </div>
+</section>
+
+<footer class="fuss">
+  <div class="fuss__spalte">
+    <h2>Verfahren</h2>
+    <p>
+      Die neun Fassungen sind außerhalb dieser Seite entstanden, jede aus ihrer
+      Vorgängerin. <code>einbinden.py</code> bringt sie auf ein gemeinsames Format,
+      rechnet die Abstände aus und meldet Stufen, die zu weit springen. Der Sprung
+      zwischen Stufe 06 und 07 ist der größte der Kette — dort wechselt der Raum
+      vom Tag in den Abend.
+    </p>
+  </div>
+  <div class="fuss__spalte">
+    <h2>Messwerte</h2>
+    <p>
+      Angegeben ist die mittlere Abweichung pro Farbkanal in Stufen von 0 bis 255.
+      Anders als beim Verklingen nebenan bleibt sie hier von Fassung zu Fassung
+      groß: Möbel verschwinden nicht allmählich, sie sind weg. Gegenüber dem
+      Original wächst der Abstand auf 76 — mehr als das Anderthalbfache der
+      ersten Kette.
+    </p>
+  </div>
+  <div class="fuss__spalte">
+    <h2>Weiter</h2>
+    <p>
+      <a class="fuss__link" href="index.html">01 Verklingen</a><br>
+      Derselbe Gedanke, rechnerisch: ein Wohnraum, fünfundzwanzig Mal durch
+      Farbdrift, Versatz und Unschärfe geschickt.
+    </p>
+  </div>
+</footer>
+
+<script src="img/moebel/stufen.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
