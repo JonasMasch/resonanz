@@ -301,7 +301,7 @@ b { font-weight: 600; }
   color: var(--tinte-zart);
 }
 
-.fuss p { margin: 0; font-size: 0.9375rem; }
+.fuss p { margin: 0; font-size: 0.9375rem; max-width: 32rem; }
 
 .fuss code {
   font-family: var(--mono);
